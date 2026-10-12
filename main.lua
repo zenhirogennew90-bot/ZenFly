@@ -1,5 +1,5 @@
 -- ===================================================================
--- ZENITH STANDALONE FLY PANEL - ELEGANT 1:1 (FIXED MINIMIZE)
+-- ZENITH STANDALONE FLY PANEL - SIDE SENSI CONTROLS EDITION
 -- ===================================================================
 
 local Players = game:GetService("Players")
@@ -53,13 +53,13 @@ gui.Parent = targetParent
 -- -------------------------------------------------------------------
 local allBtns = {}
 local flyPanel = Instance.new("Frame", gui)
-flyPanel.Size = UDim2.new(0, 240, 0, 310)
-flyPanel.Position = UDim2.new(0.5, -120, 0.5, -155)
+flyPanel.Size = UDim2.new(0, 240, 0, 240)
+flyPanel.Position = UDim2.new(1, -260, 0.15, 0)
 flyPanel.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
 flyPanel.BorderSizePixel = 2
 flyPanel.Active = true
 flyPanel.Draggable = true
-flyPanel.ClipsDescendants = true -- Mencegah elemen keluar batas saat minimize
+flyPanel.ClipsDescendants = true
 
 local flyPanelCorner = Instance.new("UICorner", flyPanel)
 flyPanelCorner.CornerRadius = UDim.new(0, 8)
@@ -94,10 +94,8 @@ btnFlyMin.MouseButton1Click:Connect(function()
     isFlyMin = not isFlyMin
     btnFlyMin.Text = isFlyMin and "+" or "-"
     
-    -- Ubah ukuran panel secara mulus
-    flyPanel.Size = isFlyMin and UDim2.new(0, 240, 0, 34) or UDim2.new(0, 240, 0, 310)
+    flyPanel.Size = isFlyMin and UDim2.new(0, 240, 0, 34) or UDim2.new(0, 240, 0, 240)
     
-    -- Sembunyikan atau tampilkan semua komponen di dalam panel
     for _, c in ipairs(flyPanel:GetChildren()) do
         if c ~= flyTitle then
             c.Visible = not isFlyMin
@@ -113,7 +111,7 @@ local function mkFlyBtn(text, pos, size)
     b.BorderSizePixel = 0
     b.Text = text
     b.Font = Enum.Font.SourceSansBold
-    b.TextSize = 14
+    b.TextSize = 13
     b.AutoButtonColor = true
     
     local corner = Instance.new("UICorner", b)
@@ -124,36 +122,36 @@ local function mkFlyBtn(text, pos, size)
 end
 
 -- -------------------------------------------------------------------
--- BUTTONS LAYOUT
+-- BUTTONS LAYOUT DI DALAM PANEL UTAMA
 -- -------------------------------------------------------------------
 -- Speed Control Bar
-local btnFlyM = mkFlyBtn("-", UDim2.new(0, 10, 0, 44), UDim2.new(0, 36, 0, 34))
+local btnFlyM = mkFlyBtn("-", UDim2.new(0, 10, 0, 44), UDim2.new(0, 36, 0, 32))
 local lblFlySpd = Instance.new("TextLabel", flyPanel)
-lblFlySpd.Size = UDim2.new(0, 138, 0, 34)
+lblFlySpd.Size = UDim2.new(0, 138, 0, 32)
 lblFlySpd.Position = UDim2.new(0, 51, 0, 44)
 lblFlySpd.BackgroundColor3 = Color3.fromRGB(25, 20, 35)
 lblFlySpd.TextColor3 = Color3.fromRGB(255, 255, 255)
-lblFlySpd.Text = "Spd: 50"
+lblFlySpd.Text = "Spd: 50 [Normal]"
 lblFlySpd.Font = Enum.Font.SourceSansBold
-lblFlySpd.TextSize = 14
+lblFlySpd.TextSize = 12
 
 local lblCorner = Instance.new("UICorner", lblFlySpd)
 lblCorner.CornerRadius = UDim.new(0, 6)
 
-local btnFlyP = mkFlyBtn("+", UDim2.new(0, 194, 0, 44), UDim2.new(0, 36, 0, 34))
+local btnFlyP = mkFlyBtn("+", UDim2.new(0, 194, 0, 44), UDim2.new(0, 36, 0, 32))
 
 -- Row 1: Maju, Naik, Turun
-local btnFwd  = mkFlyBtn("⏫ Maju", UDim2.new(0, 10, 0, 86), UDim2.new(0, 68, 0, 40))
-local btnUp   = mkFlyBtn("⬆️ Naik", UDim2.new(0, 86, 0, 86), UDim2.new(0, 68, 0, 40))
-local btnDown = mkFlyBtn("⬇️ Turun", UDim2.new(0, 162, 0, 86), UDim2.new(0, 68, 0, 40))
+local btnFwd  = mkFlyBtn("⏫ Maju", UDim2.new(0, 10, 0, 82), UDim2.new(0, 68, 0, 38))
+local btnUp   = mkFlyBtn("⬆️ Naik", UDim2.new(0, 86, 0, 82), UDim2.new(0, 68, 0, 38))
+local btnDown = mkFlyBtn("⬇️ Turun", UDim2.new(0, 162, 0, 82), UDim2.new(0, 68, 0, 38))
 
--- Row 2: Kiri & Kanan
-local btnLeft  = mkFlyBtn("⬅️ Kiri", UDim2.new(0, 10, 0, 134), UDim2.new(0, 106, 0, 40))
-local btnRight = mkFlyBtn("➡️ Kanan", UDim2.new(0, 124, 0, 134), UDim2.new(0, 106, 0, 40))
+-- Row 2: Tombol Kiri, Sensi, dan Kanan Sejajar
+local btnLeftIn  = mkFlyBtn("⬅️ Kiri", UDim2.new(0, 10, 0, 126), UDim2.new(0, 52, 0, 38))
+local btnFlySens = mkFlyBtn("⚙️ Sens: Normal", UDim2.new(0, 66, 0, 126), UDim2.new(0, 108, 0, 38))
+local btnRightIn = mkFlyBtn("➡️ Kanan", UDim2.new(0, 178, 0, 126), UDim2.new(0, 52, 0, 38))
 
--- Bottom Settings Buttons
-local btnFlySens = mkFlyBtn("⚙️ Sens: Normal", UDim2.new(0, 10, 0, 182), UDim2.new(0, 220, 0, 38))
-local btnFlyOff  = mkFlyBtn("❌ Matikan Fly", UDim2.new(0, 10, 0, 228), UDim2.new(0, 220, 0, 38))
+-- Bottom Control Button: Matikan Fly
+local btnFlyOff  = mkFlyBtn("❌ Matikan Fly", UDim2.new(0, 10, 0, 170), UDim2.new(0, 220, 0, 38))
 
 -- RGB Color Loop Accent
 local p1 = {Color3.fromRGB(0,150,255), Color3.fromRGB(255,50,50), Color3.fromRGB(180,0,255), Color3.fromRGB(0,230,100), Color3.fromRGB(255,220,0)}
@@ -181,9 +179,16 @@ local isFly = true
 local flySpd = 50
 local flyConn = nil
 
-local flySens = 1
-local sensNames = {"Normal", "Slow", "Super Slow"}
-local sensMultipliers = {1, 0.4, 0.15}
+-- Modul Level Sensi & Kecepatan Berpasangan
+local sensModes = {
+    {name = "Super Slow", speed = 10, color = Color3.fromRGB(150, 200, 255)},
+    {name = "Slow", speed = 25, color = Color3.fromRGB(180, 255, 180)},
+    {name = "Normal", speed = 50, color = Color3.fromRGB(255, 255, 255)},
+    {name = "High Speed", speed = 150, color = Color3.fromRGB(255, 220, 0)},
+    {name = "Super Speed", speed = 500, color = Color3.fromRGB(255, 120, 50)},
+    {name = "Max Speed", speed = 1000, color = Color3.fromRGB(255, 50, 50)}
+}
+local currentSensIndex = 3
 
 local successControls, playerModule = false, nil
 task.spawn(function()
@@ -214,9 +219,9 @@ end
 
 bindH(btnUp, function(v) mUp = v end)
 bindH(btnDown, function(v) mDown = v end)
-bindH(btnLeft, function(v) mLeft = v end)
-bindH(btnRight, function(v) mRight = v end)
 bindH(btnFwd, function(v) mFwd = v end)
+bindH(btnLeftIn, function(v) mLeft = v end)
+bindH(btnRightIn, function(v) mRight = v end)
 
 local function startFlyLogic(char)
     if flyConn then flyConn:Disconnect() flyConn = nil end
@@ -244,7 +249,7 @@ local function startFlyLogic(char)
 
         if dir.Magnitude > 0 then
             if anchored then hrp.Anchored = false anchored = false end
-            hrp.AssemblyLinearVelocity = dir.Unit * (flySpd * sensMultipliers[flySens])
+            hrp.AssemblyLinearVelocity = dir.Unit * flySpd
             hrp.AssemblyAngularVelocity = Vector3.zero
             hrp.CFrame = CFrame.new(hrp.Position, hrp.Position + camCF.LookVector)
         else
@@ -282,22 +287,48 @@ btnFlyOff.MouseButton1Click:Connect(function()
     toggleFly(not isFly)
 end)
 
+-- Update Tampilan UI Kecepatan & Sensi
+local function updateSpeedUI()
+    lblFlySpd.Text = "Spd: " .. flySpd
+    local matchedMode = false
+    
+    for i, mode in ipairs(sensModes) do
+        if flySpd == mode.speed then
+            lblFlySpd.Text = "Spd: " .. flySpd .. " [" .. mode.name .. "]"
+            lblFlySpd.TextColor3 = mode.color
+            btnFlySens.Text = "⚙️ " .. mode.name
+            currentSensIndex = i
+            matchedMode = true
+            break
+        end
+    end
+    
+    if not matchedMode then
+        lblFlySpd.TextColor3 = Color3.fromRGB(255, 255, 255)
+        btnFlySens.Text = "⚙️ Custom (" .. flySpd .. ")"
+    end
+end
+
+-- Klik Tombol Sensi untuk Berganti Mode Kecepatan
 btnFlySens.MouseButton1Click:Connect(function()
     PlaySoftSound()
-    flySens = (flySens % 3) + 1
-    btnFlySens.Text = "⚙️ Sens: " .. sensNames[flySens]
+    currentSensIndex = (currentSensIndex % #sensModes) + 1
+    local mode = sensModes[currentSensIndex]
+    flySpd = mode.speed
+    updateSpeedUI()
 end)
 
+-- Tombol Tambah/Kurang Kecepatan Manual
 btnFlyM.MouseButton1Click:Connect(function()
     PlaySoftSound()
-    flySpd = math.clamp(flySpd - 10, 10, 300)
-    lblFlySpd.Text = "Spd: "..flySpd
+    flySpd = math.clamp(flySpd - 10, 10, 1000)
+    updateSpeedUI()
 end)
 
 btnFlyP.MouseButton1Click:Connect(function()
     PlaySoftSound()
-    flySpd = math.clamp(flySpd + 10, 10, 300)
-    lblFlySpd.Text = "Spd: "..flySpd
+    flySpd = math.clamp(flySpd + 10, 10, 1000)
+    updateSpeedUI()
 end)
 
 -- Respawn Handler
@@ -313,4 +344,4 @@ if player.Character then
     startFlyLogic(player.Character)
 end
 
-print("Zenith Standalone Fly Panel (Fixed Minimize) Loaded Successfully!")
+print("Zenith Standalone Fly Panel (Side Sensi Controls) Loaded Successfully!")
